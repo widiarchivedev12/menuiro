@@ -21,7 +21,7 @@ const planLabel: Record<string, { label: string; color: string }> = {
 
 const quickNav: { href: string; title: string; desc: string; icon: LucideIcon }[] = [
   {
-    href: "/dashboard/profil",
+    href: "/dashboard/profile",
     title: "Profil Usaha",
     desc: "Nama, lokasi, kontak",
     icon: Store,
@@ -110,7 +110,7 @@ export default async function DashboardPage() {
             Lengkapi profil usaha kamu untuk memulai membuat menu digital.
           </p>
           <Link
-            href="/dashboard/profil"
+            href="/dashboard/profile"
             className="inline-flex items-center justify-center rounded-full bg-orange-500 px-5 py-2 text-sm font-semibold text-white hover:bg-orange-600 transition-colors"
           >
             Buat profil usaha

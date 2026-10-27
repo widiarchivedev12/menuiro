@@ -1,20 +1,20 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
 import {
   LayoutDashboard,
+  LogOut,
+  Palette,
   Store,
   UtensilsCrossed,
-  Palette,
-  LogOut,
 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { logout } from "@/app/(auth)/actions";
+import { cn } from "@/lib/utils";
 
 const navItems = [
   { href: "/dashboard", label: "Ringkasan", icon: LayoutDashboard },
-  { href: "/dashboard/profil", label: "Profil Usaha", icon: Store },
+  { href: "/dashboard/profile", label: "Profil Usaha", icon: Store },
   { href: "/dashboard/menu", label: "Menu", icon: UtensilsCrossed },
   { href: "/dashboard/template", label: "Tampilan", icon: Palette },
 ] as const;

@@ -302,31 +302,37 @@ insert into storage.buckets (id, name, public)
 values ('menu-images', 'menu-images', true)
 on conflict (id) do nothing;
 
+-- NOTE: do NOT use EXISTS with FROM businesses inside the check — businesses.name
+-- column shadows storage.objects.name inside the subquery, breaking the path check.
+-- Use IN with the path extraction in the outer context instead.
 create policy "owner uploads menu images" on storage.objects
   for insert to authenticated
   with check (
     bucket_id = 'menu-images'
-    and exists (select 1 from public.businesses b
-                where b.id::text = (storage.foldername(name))[1]
-                  and b.owner_id = (select auth.uid()))
+    and (storage.foldername(name))[1] in (
+      select b.id::text from public.businesses b
+      where b.owner_id = auth.uid()
+    )
   );
 
 create policy "owner updates menu images" on storage.objects
   for update to authenticated
   using (
     bucket_id = 'menu-images'
-    and exists (select 1 from public.businesses b
-                where b.id::text = (storage.foldername(name))[1]
-                  and b.owner_id = (select auth.uid()))
+    and (storage.foldername(name))[1] in (
+      select b.id::text from public.businesses b
+      where b.owner_id = auth.uid()
+    )
   );
 
 create policy "owner deletes menu images" on storage.objects
   for delete to authenticated
   using (
     bucket_id = 'menu-images'
-    and exists (select 1 from public.businesses b
-                where b.id::text = (storage.foldername(name))[1]
-                  and b.owner_id = (select auth.uid()))
+    and (storage.foldername(name))[1] in (
+      select b.id::text from public.businesses b
+      where b.owner_id = auth.uid()
+    )
   );
 
 -- Public bucket: reads are served via public URL, no select policy needed.
