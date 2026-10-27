@@ -122,7 +122,7 @@ export function SocialLinksForm({ businessId, currentLinks }: Props) {
       )}
 
       {platforms.map((p) => (
-        <div key={p.value} className="flex items-center gap-3">
+        <div key={p.value} className="flex flex-col sm:flex-row sm:items-center gap-1.5 sm:gap-3">
           <span className="w-24 shrink-0 text-sm font-medium text-zinc-700">
             {p.label}
           </span>
